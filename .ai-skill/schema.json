@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0",
+  "dom_mapping": {
+    "app_container": "app-root",
+    "input_section": {
+      "form": "link-submit-form",
+      "url_input": "input-url",
+      "category_select": "select-category",
+      "submit_btn": "btn-submit"
+    },
+    "kanban_section": {
+      "board": "kanban-board",
+      "columns": "category-col-[category_name]",
+      "card_template": "link-card-template"
+    },
+    "search_section": {
+      "search_input": "input-search"
+    }
+  },
+  "data_models": {
+    "LinkMessage": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "UUID v4 or Timestamp-based ID" },
+        "url": { "type": "string", "format": "uri" },
+        "title": { "type": "string", "description": "Parsed from URL or user customized" },
+        "preview_img": { "type": "string", "format": "uri", "description": "OG Image URL via Serverless Proxy" },
+        "desc": { "type": "string", "description": "User notes or meta description" },
+        "category": { "type": "string", "enum": ["Tech", "Design", "Readings", "Tools", "Others"] },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "url", "category", "created_at"]
+    }
+  },
+  "api_contracts": {
+    "fetchPreview": {
+      "input": { "url": "string" },
+      "output": { "title": "string", "preview_img": "string" },
+      "throws": ["TimeoutError", "InvalidURLError"]
+    },
+    "saveToGitHub": {
+      "input": { "link": "LinkMessage" },
+      "output": { "success": "boolean", "new_sha": "string" }
+    }
+  }
+}

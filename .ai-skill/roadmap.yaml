@@ -1,0 +1,37 @@
+project: schema-link-messenger
+version: 1.0.0
+current_phase: Phase 1 - Initialization & Infrastructure
+breakpoint: 
+  file: none
+  line: 0
+  status: "Waiting for Phase 1 task execution: Project scaffolding."
+
+phases:
+  - phase: 1
+    name: "Initialization & Infrastructure"
+    status: in-progress
+    tasks:
+      - [x] Draft AI-Native memory protocols (.ai-skill).
+      - [ ] Create index.html and define 8-module file structure.
+      - [ ] Set up Serverless Proxy (Vercel/Cloudflare) for CORS bypass.
+  
+  - phase: 2
+    name: "Core Data Layer (GitHub API)"
+    status: pending
+    tasks:
+      - [ ] Implement api-github.js (Base64 encode/decode, fetch, commit).
+      - [ ] Implement state-manager.js (Local synchronization).
+  
+  - phase: 3
+    name: "UI & Interaction Layer"
+    status: pending
+    tasks:
+      - [ ] Implement url-parser.js (Call Serverless Proxy).
+      - [ ] Implement ui-kanban.js (Render categories and cards).
+      - [ ] Implement ui-search.js (Real-time DOM filtering).
+
+historical_gotchas:
+  - issue: "GitHub API Rate Limiting for unauthorized requests"
+    solution: "Must implement a proxy or securely inject a fine-grained scoped PAT during serverless deployment. NEVER fetch raw GitHub API directly from client without token, or limit will be quickly exhausted."
+  - issue: "Native JS Module strict mode"
+    solution: "Always append .js extension in ES module imports (e.g., `import { fetchPreview } from './api-preview.js'`). Browsers require exact file extensions unlike Webpack."
